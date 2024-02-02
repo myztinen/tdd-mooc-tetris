@@ -1,6 +1,7 @@
 export class Board {
   width;
   height;
+  emptyCell = ".";
 
   constructor(width, height) {
     this.width = width;
@@ -8,10 +9,15 @@ export class Board {
   }
 
   toString() {
-    return this.createLine().repeat(this.height);
+    let boardString = "";
+    for (let row = 0; row < this.height; row++) {
+      for (let col = 0; col < this.width; col++) {
+              boardString += this.emptyCell;
+      }
+      boardString += "\n";
+    }
+  return boardString;    
   }
 
-  createLine() {
-    return ".".repeat(this.width).concat("\n");
-  }
+
 }
