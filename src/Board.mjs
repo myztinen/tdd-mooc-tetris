@@ -8,6 +8,10 @@ export class Board {
   }
 
   toString() {
-    return "TODO";
+    return this.createLine().repeat(this.height);
+  }
+
+  createLine() {
+    return ".".repeat(this.width).concat("\n");
   }
 }
