@@ -36,10 +36,13 @@ export class Board {
   }
 
   tick() {
-    this.filledCellRow += 1;
-    if (this.falling = true && this.filledCellRow >= this.height) {
+    if (this.filledCellRow == this.height) {
       this.falling = false;
-    }
+    } else this.filledCellRow += 1;
+  }
+
+  hasFalling() {
+    return this.falling;
   }
 
 }
