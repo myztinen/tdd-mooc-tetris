@@ -4,6 +4,8 @@ export class Board {
   emptyCell = ".";
   filledCellRow;
   filledCellColumn;
+  falling;
+
 
   constructor(width, height) {
     this.width = width;
@@ -25,12 +27,19 @@ export class Board {
   }
 
   drop() {
+    if(this.falling == true) {
+      throw new Error("already falling")
+    }
     this.filledCellColumn = 1;
     this.filledCellRow = 0;
+    this.falling = true;
   }
 
   tick() {
     this.filledCellRow += 1;
+    if (this.falling = true && this.filledCellRow >= this.height) {
+      this.falling = false;
+    }
   }
 
 }
