@@ -29,4 +29,8 @@ export class Board {
     this.filledCellRow = 0;
   }
 
+  tick() {
+    this.filledCellRow += 1;
+  }
+
 }
