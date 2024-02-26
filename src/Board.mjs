@@ -5,21 +5,28 @@ export class Board {
   filledCellRow;
   filledCellColumn;
   falling;
+  board;
 
 
   constructor(width, height) {
     this.width = width;
     this.height = height;
+    this.board = this._createEmptyBoard()
+  }
+
+  _createEmptyBoard() {
+    return Array.from(Array(this.height), () => {
+      return Array.from(Array(this.width), () => {
+          return '.';
+      });
+    });
   }
 
   toString() {
     let boardString = "";
     for (let row = 0; row < this.height; row++) {
       for (let col = 0; col < this.width; col++) {
-        if (this.filledCellColumn == col && this.filledCellRow == row) {
-          boardString  += 'X';
-      } else 
-      boardString += this.emptyCell;
+          boardString  += this.board[row] [col];
       }
       boardString += "\n";
     }
