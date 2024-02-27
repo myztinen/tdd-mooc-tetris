@@ -39,13 +39,19 @@ export class Board {
     }
     this.filledCellColumn = 1;
     this.filledCellRow = 0;
+    this.board[this.filledCellRow] [this.filledCellColumn] = 'X'
     this.falling = true;
   }
 
   tick() {
     if (this.filledCellRow == this.height) {
       this.falling = false;
-    } else this.filledCellRow += 1;
+    } else{
+      this.board[this.filledCellRow] [this.filledCellColumn] = '.'
+      this.filledCellRow += 1;
+      this.board[this.filledCellRow] [this.filledCellColumn] = 'X'
+
+    } 
   }
 
   hasFalling() {
