@@ -4,7 +4,7 @@ export class Board {
   emptyCell = ".";
   filledCellRow;
   filledCellColumn;
-  falling;
+  isFalling;
   board;
 
 
@@ -34,18 +34,18 @@ export class Board {
   }
 
   drop() {
-    if(this.falling == true) {
+    if(this.isFalling == true) {
       throw new Error("already falling")
     }
     this.filledCellColumn = 1;
     this.filledCellRow = 0;
     this.board[this.filledCellRow] [this.filledCellColumn] = 'X'
-    this.falling = true;
+    this.isFalling = true;
   }
 
   tick() {
-    if (this.filledCellRow == this.height) {
-      this.falling = false;
+    if (this.filledCellRow == (this.height-1)) {
+      this.isFalling = false;
     } else{
       this.board[this.filledCellRow] [this.filledCellColumn] = '.'
       this.filledCellRow += 1;
@@ -55,7 +55,7 @@ export class Board {
   }
 
   hasFalling() {
-    return this.falling;
+    return this.isFalling;
   }
 
 }
