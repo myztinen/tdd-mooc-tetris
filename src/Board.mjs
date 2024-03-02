@@ -46,7 +46,7 @@ export class Board {
   }
 
   tick() {
-    if (this.fallingCellRow == (this.height-1)) {
+    if (this.fallingCellRow == (this.height-1) || this.board[this.fallingCellRow+1] [this.fallingCellColumn] != '.') {
       this.isFalling = false;
       this.fallingCellType = undefined;
     } else{
