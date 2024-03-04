@@ -20,6 +20,14 @@ export class RotatingShape {
       }
 
       rotateRight() {
+        let newShape = this.shape.map(row => row.slice());
+        
+        for (let row = 0; row < this.height; row++) {
+          for (let col = 0; col < this.width; col++) {
+            newShape[col][this.width-1-row] = this.shape[row] [col];  
+            }
+          }
+          this.shape = newShape;
         return this;
       }
 
@@ -33,5 +41,7 @@ export class RotatingShape {
         const twoDArray = lines.map(line => line.split(''));
         return twoDArray;
       }
+      
 
+    
 }
