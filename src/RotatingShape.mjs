@@ -21,18 +21,24 @@ export class RotatingShape {
 
       rotateRight() {
         let newShape = this.shape.map(row => row.slice());
-        
         for (let row = 0; row < this.height; row++) {
           for (let col = 0; col < this.width; col++) {
             newShape[col][this.width-1-row] = this.shape[row] [col];  
             }
           }
-          this.shape = newShape;
-        return this;
+        let rotatedShape = new RotatingShape(newShape.map(subArray => subArray.join(' ')).join('\n'));
+        return rotatedShape;
       }
 
       rotateLeft() {
-        return this;
+        let newShape = this.shape.map(row => row.slice());
+        for (let row = 0; row < this.height; row++) {
+          for (let col = 0; col < this.width; col++) {
+            newShape[this.height-1-col][row] = this.shape[row] [col];  
+            }
+          }
+        let rotatedShape = new RotatingShape(newShape.map(subArray => subArray.join(' ')).join('\n'));
+        return rotatedShape;
       }
 
       _stringToArray(input) {
