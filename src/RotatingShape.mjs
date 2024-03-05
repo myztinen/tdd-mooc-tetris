@@ -18,27 +18,27 @@ export class RotatingShape {
         }
         return boardString;    
       }
-
+    
       rotateRight() {
-        let newShape = this.shape.map(row => row.slice());
-        for (let row = 0; row < this.height; row++) {
-          for (let col = 0; col < this.width; col++) {
-            newShape[col][this.width-1-row] = this.shape[row] [col];  
-            }
-          }
-        let rotatedShape = new RotatingShape(newShape.map(subArray => subArray.join(' ')).join('\n'));
-        return rotatedShape;
+        return this._rotate('right');
+      }
+    
+      rotateLeft() {
+        return this._rotate('left');
       }
 
-      rotateLeft() {
+      _rotate(direction) {
         let newShape = this.shape.map(row => row.slice());
         for (let row = 0; row < this.height; row++) {
           for (let col = 0; col < this.width; col++) {
-            newShape[this.height-1-col][row] = this.shape[row] [col];  
+            if (direction === 'right') {
+              newShape[col][this.width - 1 - row] = this.shape[row][col];
+            } else if (direction === 'left') {
+              newShape[this.height - 1 - col][row] = this.shape[row][col];
             }
           }
-        let rotatedShape = new RotatingShape(newShape.map(subArray => subArray.join(' ')).join('\n'));
-        return rotatedShape;
+        }
+        return new RotatingShape(newShape.map(subArray => subArray.join(' ')).join('\n'));
       }
 
       _stringToArray(input) {
