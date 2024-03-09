@@ -4,19 +4,21 @@ export class Tetromino {
     shape;
     height;
     width;
-    static T_SHAPE = new Tetromino(
+    orientations;
+    static T_SHAPE = new Tetromino(4,
         `.T.
          TTT
          ...`);
-    static I_SHAPE = new RotatingShape(
+    static I_SHAPE = new Tetromino(2,
       `.....
        .....
        IIII.
        .....
        .....`);
 
-    constructor(shape) {
+    constructor(orientations, shape) {
         this.shape = new RotatingShape(shape);
+        this.orientations = orientations;
 
       }
 
@@ -25,11 +27,11 @@ export class Tetromino {
       }
     
       rotateRight() {
-        return this.shape._rotate('right');
+        return new Tetromino(4,this.shape._rotate('right').toString().trim());
       }
     
       rotateLeft() {
-        return this.shape._rotate('left');
+        return new Tetromino(4,this.shape._rotate('left').toString().trim());
       }
 
     
