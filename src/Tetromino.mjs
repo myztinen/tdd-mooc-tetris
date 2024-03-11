@@ -4,34 +4,45 @@ export class Tetromino {
     shape;
     height;
     width;
-    orientations;
-    static T_SHAPE = new Tetromino(4,
+    currentOrientation;
+    shapes;
+
+    static T_SHAPE = new Tetromino(
         `.T.
-         TTT
-         ...`);
-    static I_SHAPE = new Tetromino(2,
-      `.....
-       .....
-       IIII.
-       .....
-       .....`);
+        TTT
+        ...`, 4);
+    static I_SHAPE = new Tetromino(
+        `.....
+        .....
+        IIII.
+        .....
+        .....`, 2);
 
-    constructor(orientations, shape) {
+    constructor(shape, orientationCount, currentOrientation=0) {
+        this.shapes = [];
         this.shape = new RotatingShape(shape);
-        this.orientations = orientations;
-
+        let tempShape = this.shape;
+        this.orientationCount = orientationCount;
+        for (let i = 0; i < orientationCount; i++) {
+          this.shapes.push(tempShape);
+          tempShape = tempShape.rotateRight();
+        }
+        this.currentOrientation = currentOrientation;
       }
 
       toString() {
-        return this.shape.toString();
+        return this.shapes[this.currentOrientation].toString();
       }
     
       rotateRight() {
-        return new Tetromino(4,this.shape._rotate('right').toString().trim());
+        let newOrientation = (this.shapes.length + (this.currentOrientation +1)) % this.shapes.length;
+        return new Tetromino(this.shape.toString().trim(), this.orientationCount, newOrientation);
       }
     
       rotateLeft() {
-        return new Tetromino(4,this.shape._rotate('left').toString().trim());
+        let newOrientation = (this.shapes.length + (this.currentOrientation -1)) % this.shapes.length;
+        return new Tetromino(this.shape.toString().trim(), this.orientationCount, newOrientation);
+
       }
 
     
