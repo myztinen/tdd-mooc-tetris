@@ -17,6 +17,10 @@ export class Tetromino {
         IIII.
         .....
         .....`, 2);
+    static O_SHAPE = new Tetromino(
+        `.OO
+         .OO
+         ...`, 1);
 
     constructor(shape, orientationCount, currentOrientation=0) {
         this.shapes = [];
