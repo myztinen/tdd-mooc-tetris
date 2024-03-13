@@ -27,6 +27,10 @@ export class RotatingShape {
         return this._rotate('left');
       }
 
+      cellAt(row, col) {
+        return this.shape[row] [col];
+      }
+
       _rotate(direction) {
         let newShape = this.shape.map(row => row.slice());
         for (let row = 0; row < this.height; row++) {
