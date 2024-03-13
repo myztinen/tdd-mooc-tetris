@@ -2,8 +2,6 @@ import { RotatingShape } from "./RotatingShape.mjs";
 
 export class Tetromino {
     shape;
-    height;
-    width;
     currentOrientation;
     shapes;
 
@@ -25,8 +23,6 @@ export class Tetromino {
     constructor(shape, orientationCount, currentOrientation=0) {
         this.shapes = [];
         this.shape = new RotatingShape(shape);
-        this.height = this.shape.height;
-        this.width = this.shape.width;
         let tempShape = this.shape;
         this.orientationCount = orientationCount;
         for (let i = 0; i < orientationCount; i++) {
@@ -51,5 +47,15 @@ export class Tetromino {
 
       }
 
-    
+      rows() {
+        return this.shapes[this.currentOrientation].height;
+      }
+
+      columns() {
+        return this.shapes[this.currentOrientation].width;
+      }
+
+      cellAt() {
+        return this.shapes[this.currentOrientation].width;
+      }
 }
