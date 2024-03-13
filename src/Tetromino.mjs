@@ -25,6 +25,8 @@ export class Tetromino {
     constructor(shape, orientationCount, currentOrientation=0) {
         this.shapes = [];
         this.shape = new RotatingShape(shape);
+        this.height = this.shape.height;
+        this.width = this.shape.width;
         let tempShape = this.shape;
         this.orientationCount = orientationCount;
         for (let i = 0; i < orientationCount; i++) {
