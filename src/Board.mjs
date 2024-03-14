@@ -39,9 +39,18 @@ export class Board {
       throw new Error("already falling")
     }
     this.fallingCellType = block;
-    this.fallingCellColumn = 1;
-    this.fallingCellRow = 0;
-    this.board[this.fallingCellRow] [this.fallingCellColumn] = this.fallingCellType
+    if (block.toString().length == 1) {
+      this.fallingCellColumn = Math.floor(this.width / 2);
+      this.fallingCellRow = 0;
+      this.board[this.fallingCellRow] [this.fallingCellColumn] = this.fallingCellType;
+    } else {
+      for(let row = 0; row < block.rows(); row++) {
+        for(let col = 0; col < block.columns(); col++) {
+          console.log(Math.floor(this.height/2)-block.rows());
+          this.board[row][Math.floor(this.width/2)-Math.floor(block.columns() / 2)-1+col ] = block.cellAt(row,col);
+        }
+      }
+    }
     this.isFalling = true;
   }
 
