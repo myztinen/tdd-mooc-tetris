@@ -91,6 +91,81 @@ describe("a Falling tetromino in bottom", () => {
     expect(board.hasFalling(), "the block should stop moving").to.be.false;
 
   });
-  
-});
 
+  test.skip("new one cannot be moved left throught wall", () => {
+    board.drop(Tetromino.T_SHAPE);
+    board.tick();
+    board.moveLeft();
+    board.moveLeft();
+    board.moveLeft();
+    board.moveLeft();
+    expect(board.toString()).to.equalShape(
+      `..........
+       .T........
+       TTT.......
+       ..........
+       ....T.....
+       ...TTT....`
+    );
+    expect(board.hasFalling(), "the block should moving").to.be.true;
+  });
+
+  test.skip("new one cannot be moved right throught wall", () => {
+    board.drop(Tetromino.T_SHAPE);
+    board.tick();
+    board.tick();
+    board.moveRight();
+    board.moveRight();
+    board.moveRight();
+    board.moveRight();
+    expect(board.toString()).to.equalShape(
+      `..........
+       ........T.
+       .......TTT
+       ..........
+       ....T.....
+       ...TTT....`
+    );
+    expect(board.hasFalling(), "the block should moving").to.be.true;
+  });
+
+  test.skip("new one cannot be moved right throught other blocks", () => {
+    board.drop(Tetromino.T_SHAPE);
+    board.tick();
+    board.tick();
+    board.moveLeft();
+    board.moveLeft();
+    board.tick();
+    board.moveRight();
+    expect(board.toString()).to.equalShape(
+      `..........
+       ..........
+       ..........
+       ..T.......
+       .TTTT.....
+       ...TTT....`
+    );
+    expect(board.hasFalling(), "the block should moving").to.be.true;
+  });
+
+  test.skip("new one cannot be moved left throught other blocks", () => {
+    board.drop(Tetromino.T_SHAPE);
+    board.tick();
+    board.tick();
+    board.moveRight();
+    board.moveRight();
+    board.tick();
+    board.moveLeft();
+    expect(board.toString()).to.equalShape(
+      `..........
+       ..........
+       ..........
+       ......T...
+       ....TTTT..
+       ...TTT....`
+    );
+    expect(board.hasFalling(), "the block should moving").to.be.true;
+  });
+
+
+});
