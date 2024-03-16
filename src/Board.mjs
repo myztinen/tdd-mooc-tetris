@@ -106,6 +106,39 @@ export class Board {
     }
   }
 
+  _move(direction) {
+    for(let row = 0; row < this.fallingCellType.rows() && (row+this.fallingCellRow) < this.height; row++) {
+      for(let col = 0; col < this.fallingCellType.columns(); col++) {
+        let cell = this.fallingCellType.cellAt(row,col);
+        if (cell != '.') this.board[this.fallingCellRow+row][this.fallingCellColumn+col] = this.EMPTY;
+      }
+    }
+
+    if(direction == 'left') { this.fallingCellColumn--;}
+    else if (direction == 'right') { this.fallingCellColumn++;}
+    else if (direction == 'down') { this.fallingCellRow++;}
+
+    for(let row = 0; row < this.fallingCellType.rows() && (row+this.fallingCellRow) < this.height; row++) {
+      for(let col = 0; col < this.fallingCellType.columns(); col++) {
+        let cell = this.fallingCellType.cellAt(row,col);
+        if (cell != '.') this.board[this.fallingCellRow+row][this.fallingCellColumn+col] = this.fallingCellType.cellAt(row,col);
+      }
+    }    
+  }
+
+
+  moveRight() {
+    this._move('right');
+  }
+
+  moveLeft() {
+    this._move('left');
+  }
+
+  moveDown() {
+    this._move('down');
+  }
+
   fallingBlockIsOnBottom() {
     if (!this.isFalling) {
       return false;
