@@ -44,9 +44,9 @@ export class Board {
       this.fallingCellRow = 0;
       this.board[this.fallingCellRow] [this.fallingCellColumn] = this.fallingCellType;
     } else {
+      this.fallingCellRow = 0;
       for(let row = 0; row < block.rows(); row++) {
         for(let col = 0; col < block.columns(); col++) {
-          console.log(Math.floor(this.height/2)-block.rows());
           this.board[row][Math.floor(this.width/2)-Math.floor(block.columns() / 2)-1+col ] = block.cellAt(row,col);
         }
       }
@@ -55,15 +55,44 @@ export class Board {
   }
 
   tick() {
-    if (this.fallingCellRow == (this.height-1) || this.board[this.fallingCellRow+1] [this.fallingCellColumn] != '.') {
-      this.isFalling = false;
-      this.fallingCellType = undefined;
-    } else{
-      this.board[this.fallingCellRow] [this.fallingCellColumn] = '.'
-      this.fallingCellRow += 1;
-      this.board[this.fallingCellRow] [this.fallingCellColumn] = this.fallingCellType;
+    if (typeof(this.fallingCellType) === "string") {
+      // Bottom reached or another block
+      if (this.fallingCellRow == (this.height-1) || this.board[this.fallingCellRow+1] [this.fallingCellColumn] != '.') {
+        this.isFalling = false;
+        this.fallingCellType = undefined;
+      } else{
+        this.board[this.fallingCellRow] [this.fallingCellColumn] = '.'
+        this.fallingCellRow += 1;
+        this.board[this.fallingCellRow] [this.fallingCellColumn] = this.fallingCellType;
 
-    } 
+      } 
+    } else {
+      if (!this.rowIsEmpty(this.height-1)) {
+        this.isFalling = false;
+        this.fallingCellType = undefined;
+      } else  {
+/*         console.log(this.toString());
+        console.log(this.fallingCellRow);
+        console.log(this.fallingCellType.rows()); */
+
+        for(let row = 0; row < this.fallingCellType.rows() && (row+this.fallingCellRow) < this.height; row++) {
+          this.board[row+this.fallingCellRow] = new Array(this.width).fill('.');
+        }
+
+        this.fallingCellRow++;
+
+        for(let row = 0; row < this.fallingCellType.rows() && (row+this.fallingCellRow) < this.height; row++) {
+          for(let col = 0; col < this.fallingCellType.columns(); col++) {
+            this.board[this.fallingCellRow+row][Math.floor(this.width/2)-Math.floor(this.fallingCellType.columns() / 2)-1+col ] = this.fallingCellType.cellAt(row,col);
+          }
+        }
+        console.log(this.toString());
+      }
+    }
+  }
+
+  rowIsEmpty(rowIndex) {
+    return this.board[rowIndex].every(element => element === '.');
   }
 
   hasFalling() {
