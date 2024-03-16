@@ -52,13 +52,14 @@ export class Board {
       throw new Error("already falling")
     }
     this.fallingCellType = block;
-    if (block.toString().length == 1) {
+    this.fallingCellRow = 0;
+    this.isFalling = true;
+
+    if (this.fallingCellType.toString().length == 1) {
       this.fallingCellColumn = Math.floor(this.width / 2);
-      this.fallingCellRow = 0;
       this.board[this.fallingCellRow] [this.fallingCellColumn] = this.fallingCellType;
     } else {
       this.stationary = this.board.map(function(arr) {return arr.slice();});
-      this.fallingCellRow = 0;
       this.fallingCellColumn = Math.floor(this.width/2)-Math.floor(block.columns() / 2)-1;
       for(let row = 0; row < block.rows(); row++) {
         for(let col = 0; col < block.columns(); col++) {
@@ -66,7 +67,6 @@ export class Board {
         }
       }
     }
-    this.isFalling = true;
   }
 
   tick() {
