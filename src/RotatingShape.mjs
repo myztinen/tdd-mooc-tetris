@@ -30,6 +30,10 @@ export class RotatingShape {
       cellAt(row, col) {
         return this.shape[row] [col];
       }
+      
+      rowAt(row) {
+        return this.shape[row];
+      }
 
       _rotate(direction) {
         let newShape = this.shape.map(row => row.slice());

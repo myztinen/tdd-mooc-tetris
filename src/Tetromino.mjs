@@ -58,4 +58,8 @@ export class Tetromino {
       cellAt(col, row) {
         return this.shapes[this.currentOrientation].cellAt(col, row);
       }
+      
+      rowAt(row) {
+        this.shapes[this.currentOrientation].rowAt[row];
+      }
 }

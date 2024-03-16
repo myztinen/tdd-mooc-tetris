@@ -7,12 +7,14 @@ export class Board {
   fallingCellType;
   isFalling;
   board;
+  stationary;
 
 
   constructor(width, height) {
     this.width = width;
     this.height = height;
     this.board = this._createEmptyBoard()
+    this.stationary = this._createEmptyBoard();
   }
 
   _createEmptyBoard() {
@@ -34,6 +36,17 @@ export class Board {
   return boardString;    
   }
 
+  toStationaryString() {
+    let boardString = "";
+    for (let row = 0; row < this.height; row++) {
+      for (let col = 0; col < this.width; col++) {
+          boardString  += this.stationary[row] [col];
+      }
+      boardString += "\n";
+    }
+  return boardString;    
+  }
+
   drop(block) {
     if(this.isFalling == true) {
       throw new Error("already falling")
@@ -44,15 +57,15 @@ export class Board {
       this.fallingCellRow = 0;
       this.board[this.fallingCellRow] [this.fallingCellColumn] = this.fallingCellType;
     } else {
+      this.stationary = this.board.map(function(arr) {return arr.slice();});
       this.fallingCellRow = 0;
+      this.fallingCellColumn = Math.floor(this.width/2)-Math.floor(block.columns() / 2)-1;
       for(let row = 0; row < block.rows(); row++) {
         for(let col = 0; col < block.columns(); col++) {
-          this.board[row][Math.floor(this.width/2)-Math.floor(block.columns() / 2)-1+col ] = block.cellAt(row,col);
+          this.board[row][this.fallingCellColumn+col ] = block.cellAt(row,col);
         }
       }
     }
-    console.log(this.toString());
-
     this.isFalling = true;
   }
 
@@ -69,28 +82,32 @@ export class Board {
 
       } 
     } else {
-      if (this.fallingTetrominoIsOnBottom()) {
+      if (this.fallingBlockIsOnBottom() || this.fallingBlockHitsAnotherBlock()) {
         this.isFalling = false;
         this.fallingCellType = undefined;
       } else if(this.isFalling) {
 
         for(let row = 0; row < this.fallingCellType.rows() && (row+this.fallingCellRow) < this.height; row++) {
-          this.board[row+this.fallingCellRow] = new Array(this.width).fill('.');
+          for(let col = 0; col < this.fallingCellType.columns(); col++) {
+            let cell = this.fallingCellType.cellAt(row,col);
+            if (cell != '.') this.board[this.fallingCellRow+row][this.fallingCellColumn+col ] = '.';
+            
+          // tyhjennnä alue jos block sillä rivillä ei ole tyhjä
+          }
         }
 
         this.fallingCellRow++;
 
         for(let row = 0; row < this.fallingCellType.rows() && (row+this.fallingCellRow) < this.height; row++) {
           for(let col = 0; col < this.fallingCellType.columns(); col++) {
-            this.board[this.fallingCellRow+row][Math.floor(this.width/2)-Math.floor(this.fallingCellType.columns() / 2)-1+col ] = this.fallingCellType.cellAt(row,col);
+            let cell = this.fallingCellType.cellAt(row,col);
+            if (cell != '.') this.board[this.fallingCellRow+row][Math.floor(this.width/2)-Math.floor(this.fallingCellType.columns() / 2)-1+col ] = this.fallingCellType.cellAt(row,col);
           }
         }
-        console.log(this.toString());
-
       }
     }
   }
-  fallingTetrominoIsOnBottom() {
+  fallingBlockIsOnBottom() {
     if (!this.isFalling) {
       return false;
     }
@@ -105,6 +122,23 @@ export class Board {
     return false;
   }
 
+  fallingBlockHitsAnotherBlock() {
+    if (!this.isFalling) {
+      return false;
+    }
+    for(let row = 0; row < this.fallingCellType.rows(); row++) {
+      for(let col = 0; col < this.fallingCellType.columns(); col++) {
+        let cell = this.fallingCellType.cellAt(row,col);
+        if (cell != '.') {
+          
+          if(this.stationary[this.fallingCellRow+row+1][this.fallingCellColumn+col] != '.'){ 
+            return true;}
+        } 
+      }
+    }
+    return false;
+  }
+  
 
   rowIsEmpty(rowIndex) {
     return this.board[rowIndex].every(element => element === '.');
