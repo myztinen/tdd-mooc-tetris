@@ -129,11 +129,11 @@ export class Board {
 
 
   moveRight() {
-    this._move('right');
+    if(this.fallingCellColumn+this.fallingCellType.columns() < this.width)this._move('right');
   }
 
   moveLeft() {
-    this._move('left');
+    if(this.fallingCellColumn > 0) this._move('left');
   }
 
   moveDown() {

@@ -92,7 +92,7 @@ describe("a Falling tetromino in bottom", () => {
 
   });
 
-  test.skip("new one cannot be moved left throught wall", () => {
+  test("new one cannot be moved left throught wall", () => {
     board.drop(Tetromino.T_SHAPE);
     board.tick();
     board.moveLeft();
@@ -110,9 +110,8 @@ describe("a Falling tetromino in bottom", () => {
     expect(board.hasFalling(), "the block should moving").to.be.true;
   });
 
-  test.skip("new one cannot be moved right throught wall", () => {
+  test("new one cannot be moved right throught wall", () => {
     board.drop(Tetromino.T_SHAPE);
-    board.tick();
     board.tick();
     board.moveRight();
     board.moveRight();
