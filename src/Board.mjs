@@ -123,7 +123,8 @@ export class Board {
         let cell = this.fallingCellType.cellAt(row,col);
         if (cell != '.') this.board[this.fallingCellRow+row][this.fallingCellColumn+col] = this.fallingCellType.cellAt(row,col);
       }
-    }    
+    }
+    console.log(this.toString());    
   }
 
 
@@ -136,7 +137,13 @@ export class Board {
   }
 
   moveDown() {
-    this._move('down');
+    if(this.fallingBlockIsOnBottom() || this.fallingBlockHitsAnotherBlock()) {
+      this.isFalling = false;
+      this.fallingCellType = undefined;
+      this.stationary = this.board.map(function(arr) {return arr.slice();});
+    } else {
+      this._move('down');
+    }
   }
 
   fallingBlockIsOnBottom() {
