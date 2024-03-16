@@ -51,6 +51,8 @@ export class Board {
         }
       }
     }
+    console.log(this.toString());
+
     this.isFalling = true;
   }
 
@@ -67,13 +69,10 @@ export class Board {
 
       } 
     } else {
-      if (!this.rowIsEmpty(this.height-1)) {
+      if (this.fallingTetrominoIsOnBottom()) {
         this.isFalling = false;
         this.fallingCellType = undefined;
-      } else  {
-/*         console.log(this.toString());
-        console.log(this.fallingCellRow);
-        console.log(this.fallingCellType.rows()); */
+      } else if(this.isFalling) {
 
         for(let row = 0; row < this.fallingCellType.rows() && (row+this.fallingCellRow) < this.height; row++) {
           this.board[row+this.fallingCellRow] = new Array(this.width).fill('.');
@@ -87,9 +86,25 @@ export class Board {
           }
         }
         console.log(this.toString());
+
       }
     }
   }
+  fallingTetrominoIsOnBottom() {
+    if (!this.isFalling) {
+      return false;
+    }
+    for(let row = 0; row < this.fallingCellType.rows(); row++) {
+      for(let col = 0; col < this.fallingCellType.columns(); col++) {
+        let cell = this.fallingCellType.cellAt(row,col);
+        if (cell != '.') {
+          if(this.fallingCellRow+row == this.height -1) return true;
+        } 
+      }
+    }
+    return false;
+  }
+
 
   rowIsEmpty(rowIndex) {
     return this.board[rowIndex].every(element => element === '.');
