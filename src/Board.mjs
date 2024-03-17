@@ -153,14 +153,14 @@ export class Board {
     for(let row = 0; row < this.fallingCellType.rows(); row++) {
       for(let col = 0; col < this.fallingCellType.columns(); col++) {
         let cell = this.fallingCellType.cellAt(row,col);
-        if (cell != '.') {
+        if (cell != this.EMPTY) {
           if(this.fallingCellRow+row == this.height -1) return true;
         } 
       }
     }
     return false;
   }
-  
+
   _checkCollisions(direction) {
     if (!this.isFalling) {
       return false;
@@ -168,7 +168,7 @@ export class Board {
     for(let row = 0; row < this.fallingCellType.rows(); row++) {
       for(let col = 0; col < this.fallingCellType.columns(); col++) {
         let cell = this.fallingCellType.cellAt(row,col);
-        if (cell != '.') {
+        if (cell != this.EMPTY) {
           if(direction == 'right') {
             if(this.stationary[this.fallingCellRow+row][this.fallingCellColumn+col+1] != this.EMPTY){ 
               return true;}
