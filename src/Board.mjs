@@ -112,7 +112,7 @@ export class Board {
     for (let row = 0; row < this.fallingCellType.rows() && (row + this.fallingCellRow) < this.height; row++) {
       for (let col = 0; col < this.fallingCellType.columns(); col++) {
         let cell = this.fallingCellType.cellAt(row, col);
-        if (cell != '.') this.board[this.fallingCellRow + row][this.fallingCellColumn + col] = this.fallingCellType.cellAt(row, col);
+        if (cell != this.EMPTY) this.board[this.fallingCellRow + row][this.fallingCellColumn + col] = this.fallingCellType.cellAt(row, col);
       }
     }
   }
@@ -121,29 +121,17 @@ export class Board {
     for (let row = 0; row < this.fallingCellType.rows() && (row + this.fallingCellRow) < this.height; row++) {
       for (let col = 0; col < this.fallingCellType.columns(); col++) {
         let cell = this.fallingCellType.cellAt(row, col);
-        if (cell != '.') this.board[this.fallingCellRow + row][this.fallingCellColumn + col] = this.EMPTY;
+        if (cell != this.EMPTY) this.board[this.fallingCellRow + row][this.fallingCellColumn + col] = this.EMPTY;
       }
     }
   }
 
   _move(direction) {
-    for(let row = 0; row < this.fallingCellType.rows() && (row+this.fallingCellRow) < this.height; row++) {
-      for(let col = 0; col < this.fallingCellType.columns(); col++) {
-        let cell = this.fallingCellType.cellAt(row,col);
-        if (cell != this.EMPTY) this.board[this.fallingCellRow+row][this.fallingCellColumn+col] = this.EMPTY;
-      }
-    }
-
+    this._clearOldTetromino();
     if(direction == 'left') { this.fallingCellColumn--;}
     else if (direction == 'right') { this.fallingCellColumn++;}
     else if (direction == 'down') { this.fallingCellRow++;}
-
-    for(let row = 0; row < this.fallingCellType.rows() && (row+this.fallingCellRow) < this.height; row++) {
-      for(let col = 0; col < this.fallingCellType.columns(); col++) {
-        let cell = this.fallingCellType.cellAt(row,col);
-        if (cell != this.EMPTY) this.board[this.fallingCellRow+row][this.fallingCellColumn+col] = this.fallingCellType.cellAt(row,col);
-      }
-    }
+    this._drawNewTetromino();
   }
 
 
