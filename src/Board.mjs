@@ -99,6 +99,12 @@ export class Board {
     this._clearOldTetromino();
     this.fallingCellType = this.fallingCellType.rotateLeft();
     this._drawNewTetromino();
+  }
+
+  rotateRight() {
+    this._clearOldTetromino();
+    this.fallingCellType = this.fallingCellType.rotateRight();
+    this._drawNewTetromino();
     console.log(this.toString());    
   }
 
