@@ -87,21 +87,35 @@ export class Board {
         this.stationary = this.board.map(function(arr) {return arr.slice();});
       } else if(this.isFalling) {
 
-        for(let row = 0; row < this.fallingCellType.rows() && (row+this.fallingCellRow) < this.height; row++) {
-          for(let col = 0; col < this.fallingCellType.columns(); col++) {
-            let cell = this.fallingCellType.cellAt(row,col);
-            if (cell != '.') this.board[this.fallingCellRow+row][this.fallingCellColumn+col] = this.EMPTY;
-          }
-        }
-
+        this._clearOldTetromino();
         this.fallingCellRow++;
+        this._drawNewTetromino();
 
-        for(let row = 0; row < this.fallingCellType.rows() && (row+this.fallingCellRow) < this.height; row++) {
-          for(let col = 0; col < this.fallingCellType.columns(); col++) {
-            let cell = this.fallingCellType.cellAt(row,col);
-            if (cell != '.') this.board[this.fallingCellRow+row][this.fallingCellColumn+col] = this.fallingCellType.cellAt(row,col);
-          }
-        }
+      }
+    }
+  }
+
+  rotateLeft() {
+    this._clearOldTetromino();
+    this.fallingCellType = this.fallingCellType.rotateLeft();
+    this._drawNewTetromino();
+    console.log(this.toString());    
+  }
+
+  _drawNewTetromino() {
+    for (let row = 0; row < this.fallingCellType.rows() && (row + this.fallingCellRow) < this.height; row++) {
+      for (let col = 0; col < this.fallingCellType.columns(); col++) {
+        let cell = this.fallingCellType.cellAt(row, col);
+        if (cell != '.') this.board[this.fallingCellRow + row][this.fallingCellColumn + col] = this.fallingCellType.cellAt(row, col);
+      }
+    }
+  }
+
+  _clearOldTetromino() {
+    for (let row = 0; row < this.fallingCellType.rows() && (row + this.fallingCellRow) < this.height; row++) {
+      for (let col = 0; col < this.fallingCellType.columns(); col++) {
+        let cell = this.fallingCellType.cellAt(row, col);
+        if (cell != '.') this.board[this.fallingCellRow + row][this.fallingCellColumn + col] = this.EMPTY;
       }
     }
   }
@@ -124,7 +138,6 @@ export class Board {
         if (cell != this.EMPTY) this.board[this.fallingCellRow+row][this.fallingCellColumn+col] = this.fallingCellType.cellAt(row,col);
       }
     }
-    console.log(this.toString());    
   }
 
 
