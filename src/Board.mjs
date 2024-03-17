@@ -81,7 +81,7 @@ export class Board {
 
       } 
     } else {
-      if (this.fallingBlockIsOnBottom() || this.fallingBlockHitsAnotherBlock()) {
+      if (this.fallingBlockIsOnBottom() || this._checkCollisions('down')) {
         this.isFalling = false;
         this.fallingCellType = undefined;
         this.stationary = this.board.map(function(arr) {return arr.slice();});
@@ -129,15 +129,15 @@ export class Board {
 
 
   moveRight() {
-    if(this.fallingCellColumn+this.fallingCellType.columns() < this.width)this._move('right');
+    if(this.fallingCellColumn+this.fallingCellType.columns() < this.width && !this._checkCollisions('right'))this._move('right');
   }
 
   moveLeft() {
-    if(this.fallingCellColumn > 0) this._move('left');
+    if(this.fallingCellColumn > 0 && !this._checkCollisions('left')) this._move('left');
   }
 
   moveDown() {
-    if(this.fallingBlockIsOnBottom() || this.fallingBlockHitsAnotherBlock()) {
+    if(this.fallingBlockIsOnBottom() || this._checkCollisions('down')) {
       this.isFalling = false;
       this.fallingCellType = undefined;
       this.stationary = this.board.map(function(arr) {return arr.slice();});
@@ -160,8 +160,8 @@ export class Board {
     }
     return false;
   }
-
-  fallingBlockHitsAnotherBlock() {
+  
+  _checkCollisions(direction) {
     if (!this.isFalling) {
       return false;
     }
@@ -169,8 +169,16 @@ export class Board {
       for(let col = 0; col < this.fallingCellType.columns(); col++) {
         let cell = this.fallingCellType.cellAt(row,col);
         if (cell != '.') {
-          if(this.stationary[this.fallingCellRow+row+1][this.fallingCellColumn+col] != this.EMPTY){ 
-            return true;}
+          if(direction == 'right') {
+            if(this.stationary[this.fallingCellRow+row][this.fallingCellColumn+col+1] != this.EMPTY){ 
+              return true;}
+          } else if (direction == 'left') {
+            if(this.stationary[this.fallingCellRow+row][this.fallingCellColumn+col-1] != this.EMPTY){ 
+              return true;}
+          } else if (direction == 'down') {
+              if(this.stationary[this.fallingCellRow+row+1][this.fallingCellColumn+col] != this.EMPTY){ 
+                return true;}
+            }
         } 
       }
     }
