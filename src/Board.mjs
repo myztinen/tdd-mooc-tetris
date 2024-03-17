@@ -110,7 +110,7 @@ export class Board {
     for(let row = 0; row < this.fallingCellType.rows() && (row+this.fallingCellRow) < this.height; row++) {
       for(let col = 0; col < this.fallingCellType.columns(); col++) {
         let cell = this.fallingCellType.cellAt(row,col);
-        if (cell != '.') this.board[this.fallingCellRow+row][this.fallingCellColumn+col] = this.EMPTY;
+        if (cell != this.EMPTY) this.board[this.fallingCellRow+row][this.fallingCellColumn+col] = this.EMPTY;
       }
     }
 
@@ -121,7 +121,7 @@ export class Board {
     for(let row = 0; row < this.fallingCellType.rows() && (row+this.fallingCellRow) < this.height; row++) {
       for(let col = 0; col < this.fallingCellType.columns(); col++) {
         let cell = this.fallingCellType.cellAt(row,col);
-        if (cell != '.') this.board[this.fallingCellRow+row][this.fallingCellColumn+col] = this.fallingCellType.cellAt(row,col);
+        if (cell != this.EMPTY) this.board[this.fallingCellRow+row][this.fallingCellColumn+col] = this.fallingCellType.cellAt(row,col);
       }
     }
     console.log(this.toString());    
@@ -185,11 +185,6 @@ export class Board {
     return false;
   }
   
-
-  rowIsEmpty(rowIndex) {
-    return this.board[rowIndex].every(element => element === this.EMPTY);
-  }
-
   hasFalling() {
     return this.isFalling;
   }
