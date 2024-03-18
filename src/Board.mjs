@@ -135,12 +135,12 @@ export class Board {
 
 
   moveRight() {
-    if(!this.fallingBlockIsCrossingHorizontalBorder() && !this._checkCollisions('right'))this._move('right');
+    if(!this.fallingBlockIsNotOnBoard() && !this._checkCollisions('right'))this._move('right');
     console.log(this.toString());    
   }
 
   moveLeft() {
-    if(!this.fallingBlockIsCrossingHorizontalBorder() && !this._checkCollisions('left')) this._move('left');
+    if(!this.fallingBlockIsNotOnBoard() && !this._checkCollisions('left')) this._move('left');
   }
 
   moveDown() {
@@ -169,7 +169,7 @@ export class Board {
     return false;
   }
 
-  fallingBlockIsCrossingHorizontalBorder() {
+  fallingBlockIsNotOnBoard() {
     if (!this.isFalling) {
       return false;
     }
@@ -177,7 +177,7 @@ export class Board {
       for(let col = 0; col < this.fallingCellType.columns(); col++) {
         let cell = this.fallingCellType.cellAt(row,col);
         if (cell != this.EMPTY) {
-          if(this.fallingCellColumn+col == this.width -1) return true;
+          if(this.fallingCellColumn+col > this.width -1 || this.fallingCellRow+row > this.height -1) return true;
         } 
       }
     }

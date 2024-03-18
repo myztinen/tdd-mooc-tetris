@@ -134,3 +134,49 @@ describe("a Falling I tetromino", () => {
   });
 
 });
+
+describe("I tetromino on right side ", () => {
+  let board;
+  beforeEach(() => {
+    board = new Board(10, 6);
+    board.drop(Tetromino.I_SHAPE);
+    board.rotateRight();
+    board.moveRight();
+    board.moveRight();
+    board.moveRight();
+    board.moveRight();
+    board.moveRight();
+    board.moveRight();
+  });
+
+  test.skip("can be moved along right border", () => {
+
+    board.rotateRight();
+
+    expect(board.toString()).to.equalShape(
+      `.........I
+       .........I
+       .........I
+       .........I
+       ..........
+       ..........`
+    );
+  });
+
+  test.skip("can be moved along left border", () => {
+    board.rotateRight();
+    board.moveLeft();
+    board.moveLeft();
+    board.moveLeft();
+    board.moveLeft();
+    expect(board.toString()).to.equalShape(
+      `I.........
+       I.........
+       I.........
+       I.........
+       ..........
+       ..........`
+    );
+  });
+
+});
