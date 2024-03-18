@@ -99,7 +99,6 @@ export class Board {
     this._clearOldTetromino();
     this.fallingCellType = this.fallingCellType.rotateLeft();
     this._drawNewTetromino();
-    console.log(this.toString());    
   }
 
   rotateRight() {
@@ -136,11 +135,12 @@ export class Board {
 
 
   moveRight() {
-    if(this.fallingCellColumn+this.fallingCellType.columns() < this.width && !this._checkCollisions('right'))this._move('right');
+    if(!this.fallingBlockIsCrossingHorizontalBorder() && !this._checkCollisions('right'))this._move('right');
+    console.log(this.toString());    
   }
 
   moveLeft() {
-    if(this.fallingCellColumn > 0 && !this._checkCollisions('left')) this._move('left');
+    if(!this.fallingBlockIsCrossingHorizontalBorder() && !this._checkCollisions('left')) this._move('left');
   }
 
   moveDown() {
@@ -161,7 +161,23 @@ export class Board {
       for(let col = 0; col < this.fallingCellType.columns(); col++) {
         let cell = this.fallingCellType.cellAt(row,col);
         if (cell != this.EMPTY) {
-          if(this.fallingCellRow+row == this.height -1) return true;
+          if(this.fallingCellRow+row == this.height -1)  return true;
+          
+        } 
+      }
+    }
+    return false;
+  }
+
+  fallingBlockIsCrossingHorizontalBorder() {
+    if (!this.isFalling) {
+      return false;
+    }
+    for(let row = 0; row < this.fallingCellType.rows(); row++) {
+      for(let col = 0; col < this.fallingCellType.columns(); col++) {
+        let cell = this.fallingCellType.cellAt(row,col);
+        if (cell != this.EMPTY) {
+          if(this.fallingCellColumn+col == this.width -1) return true;
         } 
       }
     }

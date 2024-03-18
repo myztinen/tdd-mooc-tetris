@@ -98,4 +98,39 @@ describe("a Falling I tetromino", () => {
        ..........`
     );
   });
+
+  test("can be moved along right border", () => {
+    board.rotateRight();
+    board.moveRight();
+    board.moveRight();
+    board.moveRight();
+    board.moveRight();
+    board.moveRight();
+    board.moveRight();
+    expect(board.toString()).to.equalShape(
+      `.........I
+       .........I
+       .........I
+       .........I
+       ..........
+       ..........`
+    );
+  });
+
+  test("can be moved along left border", () => {
+    board.rotateRight();
+    board.moveLeft();
+    board.moveLeft();
+    board.moveLeft();
+    board.moveLeft();
+    expect(board.toString()).to.equalShape(
+      `I.........
+       I.........
+       I.........
+       I.........
+       ..........
+       ..........`
+    );
+  });
+
 });
