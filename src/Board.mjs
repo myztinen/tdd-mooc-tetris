@@ -135,12 +135,12 @@ export class Board {
 
 
   moveRight() {
-    if(!this.fallingBlockIsNotOnBoard() && !this._checkCollisions('right'))this._move('right');
+    if(this.blockCanBeMovedTo('right') && !this._checkCollisions('right'))this._move('right');
     console.log(this.toString());    
   }
 
   moveLeft() {
-    if(!this.fallingBlockIsNotOnBoard() && !this._checkCollisions('left')) this._move('left');
+    if(this.blockCanBeMovedTo('left') && !this._checkCollisions('left')) this._move('left');
   }
 
   moveDown() {
@@ -169,7 +169,7 @@ export class Board {
     return false;
   }
 
-  fallingBlockIsNotOnBoard() {
+  blockCanBeMovedTo(direction) {
     if (!this.isFalling) {
       return false;
     }
@@ -177,11 +177,19 @@ export class Board {
       for(let col = 0; col < this.fallingCellType.columns(); col++) {
         let cell = this.fallingCellType.cellAt(row,col);
         if (cell != this.EMPTY) {
-          if(this.fallingCellColumn+col > this.width -1 || this.fallingCellRow+row > this.height -1) return true;
+          if(direction == 'right'){
+            if(this.fallingCellColumn+col+1 > this.width -1) return false;
+          } 
+          else if(direction == 'left'){
+             if(this.fallingCellColumn+col-1 < 0) return false;
+          } 
+          else if(direction == 'down'){
+            if (this.fallingCellRow+row+1 > this.height-1) return false;
+          } 
         } 
       }
     }
-    return false;
+    return true;
   }
 
   _checkCollisions(direction) {

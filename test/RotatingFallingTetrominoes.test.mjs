@@ -150,9 +150,7 @@ describe("I tetromino on right side ", () => {
   });
 
   test.skip("can be moved along right border", () => {
-
     board.rotateRight();
-
     expect(board.toString()).to.equalShape(
       `.........I
        .........I
@@ -178,5 +176,4 @@ describe("I tetromino on right side ", () => {
        ..........`
     );
   });
-
 });
