@@ -61,11 +61,7 @@ export class Board {
     } else {
       this.stationary = this.board.map(function(arr) {return arr.slice();});
       this.fallingCellColumn = Math.floor(this.width/2)-Math.floor(block.columns() / 2)-1;
-      for(let row = 0; row < block.rows(); row++) {
-        for(let col = 0; col < block.columns(); col++) {
-          this.board[row][this.fallingCellColumn+col ] = block.cellAt(row,col);
-        }
-      }
+      this._drawNewTetromino();
     }
   }
 
@@ -109,13 +105,13 @@ export class Board {
     if(direction == 'right') this.fallingCellType = this.fallingCellType.rotateRight();
     if(direction == 'left') this.fallingCellType = this.fallingCellType.rotateLeft();
 
-    if (!this._fallingBlockIsOnBoard()) {
+    if (!this._fallingBlockIsOnBoard() || this._IsOverlappingStationaryBlock()) {
       this.fallingCellColumn++;
     }
-    if (!this._fallingBlockIsOnBoard()) {
+    if (!this._fallingBlockIsOnBoard() || this._IsOverlappingStationaryBlock()) {
       this.fallingCellColumn -= 2;
     }
-    if (!this._fallingBlockIsOnBoard()) {
+    if (!this._fallingBlockIsOnBoard() || this._IsOverlappingStationaryBlock()) {
       this.fallingCellColumn++;
       this.fallingCellType = temp;
     }
@@ -240,6 +236,21 @@ export class Board {
               if(this._containsDroppedBlock(this.fallingCellRow+row+1, this.fallingCellColumn+col)){ 
                 return true;}
             }
+        } 
+      }
+    }
+    return false;
+  }
+
+  _IsOverlappingStationaryBlock() {
+    if (!this.isFalling) {
+      return false;
+    }
+    for(let row = 0; row < this.fallingCellType.rows(); row++) {
+      for(let col = 0; col < this.fallingCellType.columns(); col++) {
+        let cell = this.fallingCellType.cellAt(row,col);
+        if (cell != this.EMPTY) {
+            if(this._containsDroppedBlock(this.fallingCellRow+row, this.fallingCellColumn+col)) return true;
         } 
       }
     }
