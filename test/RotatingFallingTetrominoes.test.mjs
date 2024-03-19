@@ -227,3 +227,62 @@ describe("I tetromino moved to left side ", () => {
   });
 });
 
+
+describe("With two I block in bottom ", () => {
+  let board;
+  beforeEach(() => {
+    board = new Board(10, 6);
+    board.drop(Tetromino.I_SHAPE);
+    board.rotateRight();
+    board.moveLeft();
+    board.moveLeft();
+    board.moveLeft();
+    board.moveLeft();
+    fallToBottom(board);
+    board.drop(Tetromino.I_SHAPE);
+    board.rotateRight();
+    board.moveLeft();
+    fallToBottom(board);
+  });
+
+
+  test("is on left side", () => {
+      expect(board.hasFalling(), "the block should stop moving").to.be.false;
+      expect(board.toString()).to.equalShape(
+      `..........
+       ..........
+       I..I......
+       I..I......
+       I..I......
+       I..I......`
+      );
+    });
+
+  test.skip("Cannot be rotated when close to border", () => {
+    board.rotateLeft();
+    expect(board.toString()).to.equalShape(
+    `I.........
+     I.........
+     I.........
+     I.........
+     ..........
+     ..........`
+    );
+  });
+
+  test.skip("Can be rotated when not attached to border", () => {
+    board.moveRight();
+    board.rotateLeft();
+    expect(board.toString()).to.equalShape(
+   `..........
+    ..........
+    IIII......
+    ..........
+    ..........
+    ..........`
+    );
+  });
+});
+
+
+
