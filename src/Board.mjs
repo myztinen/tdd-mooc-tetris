@@ -231,13 +231,13 @@ export class Board {
         let cell = this.fallingCellType.cellAt(row,col);
         if (cell != this.EMPTY) {
           if(direction == 'right') {
-            if(this.stationary[this.fallingCellRow+row][this.fallingCellColumn+col+1] != this.EMPTY){ 
+            if(this._containsDroppedBlock(this.fallingCellRow+row, this.fallingCellColumn+col+1)){ 
               return true;}
           } else if (direction == 'left') {
-            if(this.stationary[this.fallingCellRow+row][this.fallingCellColumn+col-1] != this.EMPTY){ 
+            if(this._containsDroppedBlock(this.fallingCellRow+row, this.fallingCellColumn+col-1)){ 
               return true;}
           } else if (direction == 'down') {
-              if(this.stationary[this.fallingCellRow+row+1][this.fallingCellColumn+col] != this.EMPTY){ 
+              if(this._containsDroppedBlock(this.fallingCellRow+row+1, this.fallingCellColumn+col)){ 
                 return true;}
             }
         } 
@@ -248,6 +248,10 @@ export class Board {
   
   hasFalling() {
     return this.isFalling;
+  }
+
+  _containsDroppedBlock(row, col) {
+    return this.stationary[row][col] != this.EMPTY;
   }
 
 }
