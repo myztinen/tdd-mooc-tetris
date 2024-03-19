@@ -149,31 +149,81 @@ describe("I tetromino on right side ", () => {
     board.moveRight();
   });
 
-  test.skip("can be moved along right border", () => {
+  test("can be moved along right border", () => {
     board.rotateRight();
     expect(board.toString()).to.equalShape(
-      `.........I
-       .........I
-       .........I
-       .........I
-       ..........
-       ..........`
+     `..........
+      ..........
+      ......IIII
+      ..........
+      ..........
+      ..........`
     );
   });
 
-  test.skip("can be moved along left border", () => {
+  test("kick", () => {
+    board.moveLeft();
+    board.rotateRight();
+    expect(board.toString()).to.equalShape(
+      `..........
+      ..........
+      ......IIII
+      ..........
+      ..........
+      ..........`
+    );
+  });
+});
+
+describe("I tetromino moved to left side ", () => {
+  let board;
+  beforeEach(() => {
+    board = new Board(10, 6);
+    board.drop(Tetromino.I_SHAPE);
     board.rotateRight();
     board.moveLeft();
     board.moveLeft();
     board.moveLeft();
     board.moveLeft();
-    expect(board.toString()).to.equalShape(
+    board.moveLeft();
+    board.moveLeft();
+  });
+
+
+  test("is on left side", () => {
+      expect(board.toString()).to.equalShape(
       `I.........
        I.........
        I.........
        I.........
        ..........
        ..........`
+      );
+    });
+
+  test("Cannot be rotated when close to border", () => {
+    board.rotateLeft();
+    expect(board.toString()).to.equalShape(
+    `I.........
+     I.........
+     I.........
+     I.........
+     ..........
+     ..........`
+    );
+  });
+
+  test("Can be rotated when not attached to border", () => {
+    board.moveRight();
+    board.rotateLeft();
+    expect(board.toString()).to.equalShape(
+   `..........
+    ..........
+    IIII......
+    ..........
+    ..........
+    ..........`
     );
   });
 });
+

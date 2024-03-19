@@ -96,14 +96,29 @@ export class Board {
   }
 
   rotateLeft() {
-    this._clearOldTetromino();
-    this.fallingCellType = this.fallingCellType.rotateLeft();
-    this._drawNewTetromino();
+    this._rotateTetromino('left'); 
   }
 
   rotateRight() {
+    this._rotateTetromino('right');
+  }
+
+  _rotateTetromino(direction) {
     this._clearOldTetromino();
-    this.fallingCellType = this.fallingCellType.rotateRight();
+    let temp = this.fallingCellType;
+    if(direction == 'right') this.fallingCellType = this.fallingCellType.rotateRight();
+    if(direction == 'left') this.fallingCellType = this.fallingCellType.rotateLeft();
+
+    if (!this._fallingBlockIsOnBoard()) {
+      this.fallingCellColumn++;
+    }
+    if (!this._fallingBlockIsOnBoard()) {
+      this.fallingCellColumn -= 2;
+    }
+    if (!this._fallingBlockIsOnBoard()) {
+      this.fallingCellColumn++;
+      this.fallingCellType = temp;
+    }
     this._drawNewTetromino();
   }
 
@@ -135,12 +150,11 @@ export class Board {
 
 
   moveRight() {
-    if(this.blockCanBeMovedTo('right') && !this._checkCollisions('right'))this._move('right');
-    console.log(this.toString());    
+    if(this._blockCanBeMovedTo('right') && !this._checkCollisions('right'))this._move('right');
   }
 
   moveLeft() {
-    if(this.blockCanBeMovedTo('left') && !this._checkCollisions('left')) this._move('left');
+    if(this._blockCanBeMovedTo('left') && !this._checkCollisions('left')) this._move('left');
   }
 
   moveDown() {
@@ -169,7 +183,7 @@ export class Board {
     return false;
   }
 
-  blockCanBeMovedTo(direction) {
+  _blockCanBeMovedTo(direction) {
     if (!this.isFalling) {
       return false;
     }
@@ -186,6 +200,22 @@ export class Board {
           else if(direction == 'down'){
             if (this.fallingCellRow+row+1 > this.height-1) return false;
           } 
+        } 
+      }
+    }
+    return true;
+  }
+
+  _fallingBlockIsOnBoard() {
+    if (!this.isFalling) {
+      return false;
+    }
+    for(let row = 0; row < this.fallingCellType.rows(); row++) {
+      for(let col = 0; col < this.fallingCellType.columns(); col++) {
+        let cell = this.fallingCellType.cellAt(row,col);
+        if (cell != this.EMPTY) {
+          if(this.fallingCellColumn+col > this.width-1 || this.fallingCellColumn < 0) return false;
+          else if (this.fallingCellRow+row > this.height-1 || this.fallingCellRow < 0 ) return false;
         } 
       }
     }
