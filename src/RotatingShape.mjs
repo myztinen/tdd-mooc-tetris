@@ -1,4 +1,6 @@
 export class RotatingShape {
+
+    static O_ROTATIONS = [`....\n.OO.\n.OO.\n....\n`]; 
     shape;
     height;
     width;
@@ -36,17 +38,34 @@ export class RotatingShape {
       }
 
       _rotate(direction) {
-        let newShape = this.shape.map(row => row.slice());
-        for (let row = 0; row < this.height; row++) {
-          for (let col = 0; col < this.width; col++) {
-            if (direction === 'right') {
-              newShape[col][this.width - 1 - row] = this.shape[row][col];
-            } else if (direction === 'left') {
-              newShape[this.height - 1 - col][row] = this.shape[row][col];
+        if (RotatingShape.O_ROTATIONS.indexOf(this.toString())>=0) {
+          let newShape = this.shape.map(row => row.slice());
+          for (let row = 0; row < this.height; row++) {
+            for (let col = 0; col < this.width; col++) {
+              if (direction === 'right') {
+                console.log("static version");
+                let shape = RotatingShape.O_ROTATIONS;
+                return new RotatingShape(shape[0]);
+                
+              } else if (direction === 'left') {
+                newShape[this.height - 1 - col][row] = this.shape[row][col];
+              }
             }
           }
+          return new RotatingShape(newShape.map(subArray => subArray.join(' ')).join('\n'));
+        } else {
+          let newShape = this.shape.map(row => row.slice());
+          for (let row = 0; row < this.height; row++) {
+            for (let col = 0; col < this.width; col++) {
+              if (direction === 'right') {
+                newShape[col][this.width - 1 - row] = this.shape[row][col];
+              } else if (direction === 'left') {
+                newShape[this.height - 1 - col][row] = this.shape[row][col];
+              }
+            }
+          }
+          return new RotatingShape(newShape.map(subArray => subArray.join(' ')).join('\n'));
         }
-        return new RotatingShape(newShape.map(subArray => subArray.join(' ')).join('\n'));
       }
 
       _stringToArray(input) {
@@ -55,7 +74,5 @@ export class RotatingShape {
         const twoDArray = lines.map(line => line.split(''));
         return twoDArray;
       }
-      
 
-    
 }
