@@ -6,19 +6,19 @@ export class Tetromino {
     shapes;
 
     static T_SHAPE = new Tetromino(
-        `.T.
+       `.T.
         TTT
         ...`, 4);
     static I_SHAPE = new Tetromino(
-        `.....
-        .....
-        IIII.
-        .....
-        .....`, 2);
+       `....
+        IIII
+        ....
+        ....`, 2);
     static O_SHAPE = new Tetromino(
-        `.OO
-         .OO
-         ...`, 1);
+        `....
+         .OO.
+         .OO.
+         ....`, 1);
 
     constructor(shape, orientationCount, currentOrientation=0) {
         this.shapes = [];
