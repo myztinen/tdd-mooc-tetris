@@ -1,6 +1,12 @@
 export class RotatingShape {
 
-    static O_ROTATIONS = [`....\n.OO.\n.OO.\n....\n`]; 
+    static O_ROTATIONS = ["....\n.OO.\n.OO.\n....\n"]; 
+
+    static I_ROTATIONS = [
+      "....\nIIII\n....\n....\n",
+      "..I.\n..I.\n..I.\n..I.\n"
+      ];
+
     shape;
     height;
     width;
@@ -43,7 +49,7 @@ export class RotatingShape {
           for (let row = 0; row < this.height; row++) {
             for (let col = 0; col < this.width; col++) {
               if (direction === 'right') {
-                console.log("static version");
+                //console.log("static version");
                 let shape = RotatingShape.O_ROTATIONS;
                 return new RotatingShape(shape[0]);
                 
@@ -74,5 +80,6 @@ export class RotatingShape {
         const twoDArray = lines.map(line => line.split(''));
         return twoDArray;
       }
+      
 
 }
