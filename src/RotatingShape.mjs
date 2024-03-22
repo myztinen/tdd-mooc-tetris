@@ -81,5 +81,13 @@ export class RotatingShape {
         return twoDArray;
       }
       
+      _findCurrentRotatinShape() {
+        if(RotatingShape.O_ROTATIONS.indexOf(this.toString()) > 0) {
+          return RotatingShape.O_ROTATIONS;
+        }
+        if (RotatingShape.I_ROTATIONS.indexOf(this.toString()) > 0) {
+          return RotatingShape.I_ROTATIONS;
+        }
+      }
 
 }
