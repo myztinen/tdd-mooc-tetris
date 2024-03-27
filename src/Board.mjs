@@ -52,15 +52,16 @@ export class Board {
       throw new Error("already falling")
     }
     this.fallingCellType = block;
-    this.fallingCellRow = 0;
     this.isFalling = true;
 
     if (this.fallingCellType.toString().length == 1) {
+      this.fallingCellRow = 0;
       this.fallingCellColumn = Math.floor(this.width / 2);
       this.board[this.fallingCellRow] [this.fallingCellColumn] = this.fallingCellType;
     } else {
+      this.fallingCellRow = -1;
       this.stationary = this.board.map(function(arr) {return arr.slice();});
-      this.fallingCellColumn = Math.floor(this.width/2)-Math.floor(block.columns() / 2)-1;
+      this.fallingCellColumn = Math.floor(this.width/2)-Math.floor(block.columns() / 2);
       this._drawNewTetromino();
     }
   }
@@ -79,10 +80,8 @@ export class Board {
     } else {
       if (this.fallingBlockIsOnBottom() || this._checkCollisions('down')) {
         this.isFalling = false;
-        this.fallingCellType = undefined;
         this.stationary = this.board.map(function(arr) {return arr.slice();});
       } else if(this.isFalling) {
-
         this._clearOldTetromino();
         this.fallingCellRow++;
         this._drawNewTetromino();
@@ -137,11 +136,13 @@ export class Board {
   }
 
   _move(direction) {
-    this._clearOldTetromino();
-    if(direction == 'left') { this.fallingCellColumn--;}
-    else if (direction == 'right') { this.fallingCellColumn++;}
-    else if (direction == 'down') { this.fallingCellRow++;}
-    this._drawNewTetromino();
+    if(this.hasFalling()) {
+      this._clearOldTetromino();
+      if(direction == 'left') { this.fallingCellColumn--;}
+      else if (direction == 'right') { this.fallingCellColumn++;}
+      else if (direction == 'down') { this.fallingCellRow++;}
+      this._drawNewTetromino();
+    }
   }
 
 
@@ -156,7 +157,6 @@ export class Board {
   moveDown() {
     if(this.fallingBlockIsOnBottom() || this._checkCollisions('down')) {
       this.isFalling = false;
-      this.fallingCellType = undefined;
       this.stationary = this.board.map(function(arr) {return arr.slice();});
     } else {
       this._move('down');
@@ -264,5 +264,4 @@ export class Board {
   _containsDroppedBlock(row, col) {
     return this.stationary[row][col] != this.EMPTY;
   }
-
 }

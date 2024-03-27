@@ -1,8 +1,8 @@
 
 import { beforeEach, describe, test } from "vitest";
 import { expect } from "chai";
-import { Board } from "../src/ArikaBoard.mjs";
-import { Tetromino } from "../src/ArikaTetromino.mjs";
+import { Board } from "../src/Board.mjs";
+import { Tetromino } from "../src/Tetromino.mjs";
 
 function fallToBottom(board) {
   for (let i = 0; i < 10; i++) {

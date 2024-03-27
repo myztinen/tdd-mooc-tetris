@@ -6,9 +6,10 @@ export class Tetromino {
     shapes;
 
     static T_SHAPE = new Tetromino(
-       `.T.
-        TTT
-        ...`, 4);
+       `....
+        TTT.
+        .T..
+        ....`, 4);
     static I_SHAPE = new Tetromino(
        `....
         IIII
@@ -20,46 +21,35 @@ export class Tetromino {
          .OO.
          ....`, 1);
 
-    constructor(shape, orientationCount, currentOrientation=0) {
-        this.shapes = [];
+    constructor(shape, dropHeight) {
         this.shape = new RotatingShape(shape);
-        let tempShape = this.shape;
-        this.orientationCount = orientationCount;
-        for (let i = 0; i < orientationCount; i++) {
-          this.shapes.push(tempShape);
-          tempShape = tempShape.rotateRight();
-        }
-        this.currentOrientation = currentOrientation;
       }
 
       toString() {
-        return this.shapes[this.currentOrientation].toString();
+        return this.shape.toString();
       }
     
       rotateRight() {
-        let newOrientation = (this.shapes.length + (this.currentOrientation +1)) % this.shapes.length;
-        return new Tetromino(this.shape.toString().trim(), this.orientationCount, newOrientation);
+        return new Tetromino(this.shape.newRotateRight().toString().trim());
       }
     
       rotateLeft() {
-        let newOrientation = (this.shapes.length + (this.currentOrientation -1)) % this.shapes.length;
-        return new Tetromino(this.shape.toString().trim(), this.orientationCount, newOrientation);
-
+        return new Tetromino(this.shape.newRotateLeft().toString().trim());
       }
 
       rows() {
-        return this.shapes[this.currentOrientation].height;
+        return this.shape.height;
       }
 
       columns() {
-        return this.shapes[this.currentOrientation].width;
+        return this.shape.width;
       }
 
       cellAt(col, row) {
-        return this.shapes[this.currentOrientation].cellAt(col, row);
+        return this.shape.cellAt(col, row);
       }
       
       rowAt(row) {
-        this.shapes[this.currentOrientation].rowAt[row];
+        this.shape.rowAt[row];
       }
 }
