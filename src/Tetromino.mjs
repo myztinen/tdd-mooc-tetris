@@ -30,11 +30,11 @@ export class Tetromino {
       }
     
       rotateRight() {
-        return new Tetromino(this.shape.newRotateRight().toString().trim());
+        return new Tetromino(this.shape.rotateRight().toString().trim());
       }
     
       rotateLeft() {
-        return new Tetromino(this.shape.newRotateLeft().toString().trim());
+        return new Tetromino(this.shape.rotateLeft().toString().trim());
       }
 
       rows() {

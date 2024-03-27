@@ -21,7 +21,7 @@ describe("Rotating 4x4 T shape", () => {
   });
 
   test("can be rotated right/clockwise", () => {
-    expect(shape.newRotateRight().toString()).to.equalShape(
+    expect(shape.rotateRight().toString()).to.equalShape(
       `.T..
        TT..
        .T..
@@ -30,7 +30,7 @@ describe("Rotating 4x4 T shape", () => {
   });
 
   test("can be rotated left/counter-clockwise", () => {
-    expect(shape.newRotateLeft().toString()).to.equalShape(
+    expect(shape.rotateLeft().toString()).to.equalShape(
       `.T..
        .TT.
        .T..
@@ -39,7 +39,7 @@ describe("Rotating 4x4 T shape", () => {
   });
 
   test("can be rotated twice left/counter-clockwise", () => {
-    expect(shape.newRotateLeft().newRotateLeft().toString()).to.equalShape(
+    expect(shape.rotateLeft().rotateLeft().toString()).to.equalShape(
       `....
        .T..
        TTT.

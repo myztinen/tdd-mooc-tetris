@@ -35,21 +35,12 @@ export class RotatingShape {
       }
     
       rotateRight() {
-        return this._rotate('right');
+          return this._rotate('right');
       }
     
       rotateLeft() {
-        return this._rotate('left');
+          return this._rotate('left');
       }
-
-      newRotateRight() {
-          return this._newRotate('right');
-      }
-    
-      newRotateLeft() {
-          return this._newRotate('left');
-      }
-
 
       cellAt(row, col) {
         return this.shape[row] [col];
@@ -60,20 +51,6 @@ export class RotatingShape {
       }
 
       _rotate(direction) {
-          let newShape = this.shape.map(row => row.slice());
-          for (let row = 0; row < this.height; row++) {
-            for (let col = 0; col < this.width; col++) {
-              if (direction === 'right') {
-                newShape[col][this.width - 1 - row] = this.shape[row][col];
-              } else if (direction === 'left') {
-                newShape[this.height - 1 - col][row] = this.shape[row][col];
-              }
-            }
-          }
-          return new RotatingShape(newShape.map(subArray => subArray.join(' ')).join('\n'))
-      }
-
-      _newRotate(direction) {
         let newOrientation = 0;
 
           let staticShape = this._findCurrentRotatinShape();
