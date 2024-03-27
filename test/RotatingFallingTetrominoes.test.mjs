@@ -296,7 +296,6 @@ describe("With two I block in bottom ", () => {
     board.tick();
     board.tick();
     board.tick();
-    console.log(board.toString());
     expect(board.toString()).to.equalShape(
      `..........
       ..........
