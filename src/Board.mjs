@@ -264,4 +264,15 @@ export class Board {
   _containsDroppedBlock(row, col) {
     return this.stationary[row][col] != this.EMPTY;
   }
+
+  clearLines() {
+    let fullRows = [];
+    this.stationary.forEach((row, rowIndex) => {
+      let fullRow = row.some(item => item == this.EMPTY);
+      if(!fullRow) {
+        fullRows.push(rowIndex);
+      } 
+    });
+    return fullRows;
+  }
 }
