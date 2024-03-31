@@ -80,7 +80,9 @@ export class Board {
     } else {
       if (this.fallingBlockIsOnBottom() || this._checkCollisions('down')) {
         this.isFalling = false;
+        this.lineClear();
         this.stationary = this.board.map(function(arr) {return arr.slice();});
+        
       } else if(this.isFalling) {
         this._clearOldTetromino();
         this.fallingCellRow++;
@@ -265,14 +267,35 @@ export class Board {
     return this.stationary[row][col] != this.EMPTY;
   }
 
-  clearLines() {
+  _dropRows(startRow) {  
+    for (let i = startRow - 1; i > 0; i--) {
+      this.board[i + 1] = [...this.board[i]]; // Make a shallow copy of the row
+    }
+  }
+
+  lineClear() {
+    let fullRows = this._getFullRows();
+    fullRows.forEach(row => this._removeBlocksFromRow(row));
+    fullRows.forEach(rowIndex => this._dropRows(rowIndex));
+    
+  }
+
+  _getFullRows() {
     let fullRows = [];
-    this.stationary.forEach((row, rowIndex) => {
+    this.board.forEach((row, rowIndex) => {
       let fullRow = row.some(item => item == this.EMPTY);
       if(!fullRow) {
         fullRows.push(rowIndex);
       } 
     });
-    return fullRows;
+    return fullRows.sort();
+  }
+
+  _removeBlocksFromRow(rowIndex) {
+    for (let i = 0; i < this.stationary[rowIndex].length; i++) {
+      this.board[rowIndex][i] = this.EMPTY;
+    }
   }
 }
+
+
