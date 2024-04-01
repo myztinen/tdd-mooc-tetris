@@ -8,7 +8,7 @@ export class Board {
   isFalling;
   board;
   stationary;
-  observers;
+  listeners;
 
 
   constructor(width, height) {
@@ -295,6 +295,15 @@ export class Board {
     for (let i = 0; i < this.stationary[rowIndex].length; i++) {
       this.board[rowIndex][i] = this.EMPTY;
     }
+  }
+
+  addListerer(listerner) {
+  }
+
+  removeListener() {
+  }
+
+  updateListeners() {
   }
 }
 
