@@ -8,6 +8,7 @@ export class Board {
   isFalling;
   board;
   stationary;
+  observers;
 
 
   constructor(width, height) {
@@ -78,9 +79,9 @@ export class Board {
 
       } 
     } else {
-      if (this.fallingBlockIsOnBottom() || this._checkCollisions('down')) {
+      if (this._fallingBlockIsOnBottom() || this._checkCollisions('down')) {
         this.isFalling = false;
-        this.lineClear();
+        this._lineClear();
         this.stationary = this.board.map(function(arr) {return arr.slice();});
         
       } else if(this.isFalling) {
@@ -157,7 +158,7 @@ export class Board {
   }
 
   moveDown() {
-    if(this.fallingBlockIsOnBottom() || this._checkCollisions('down')) {
+    if(this._fallingBlockIsOnBottom() || this._checkCollisions('down')) {
       this.isFalling = false;
       this.stationary = this.board.map(function(arr) {return arr.slice();});
     } else {
@@ -165,7 +166,7 @@ export class Board {
     }
   }
 
-  fallingBlockIsOnBottom() {
+  _fallingBlockIsOnBottom() {
     if (!this.isFalling) {
       return false;
     }
@@ -273,11 +274,10 @@ export class Board {
     }
   }
 
-  lineClear() {
+  _lineClear() {
     let fullRows = this._getFullRows();
     fullRows.forEach(row => this._removeBlocksFromRow(row));
     fullRows.forEach(rowIndex => this._dropRows(rowIndex));
-    
   }
 
   _getFullRows() {
