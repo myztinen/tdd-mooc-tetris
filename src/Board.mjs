@@ -16,6 +16,7 @@ export class Board {
     this.height = height;
     this.board = this._createEmptyBoard()
     this.stationary = this._createEmptyBoard();
+    this.listeners = [];
   }
 
   _createEmptyBoard() {
@@ -278,6 +279,7 @@ export class Board {
     let fullRows = this._getFullRows();
     fullRows.forEach(row => this._removeBlocksFromRow(row));
     fullRows.forEach(rowIndex => this._dropRows(rowIndex));
+    this.updateListeners(fullRows.length);
   }
 
   _getFullRows() {
@@ -297,13 +299,15 @@ export class Board {
     }
   }
 
-  addListerer(listerner) {
+  addListener(listener) {
+    this.listeners.push(listener);
   }
 
-  removeListener() {
+  removeListener(listener) {  
   }
 
-  updateListeners() {
+  updateListeners(data) {
+    this.listeners.forEach(listener => listener.update(data));
   }
 }
 
