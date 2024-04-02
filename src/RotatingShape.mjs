@@ -13,6 +13,20 @@ export class RotatingShape {
         "....\n.T..\nTTT.\n....\n",
         ".T..\n.TT.\n.T..\n....\n",
       ];
+    
+    static J_ROTATIONS = [
+      "....\nJJJ.\n..J.\n....\n",
+      ".J..\n.J..\nJJ..\n....\n",
+      "....\nJ...\nJJJ.\n....\n",
+      ".JJ.\n.J..\n.J..\n....\n"
+    ];
+    
+    static L_ROTATIONS = [
+      "....\nLLL.\nL...\n....\n",
+      "LL..\n.L..\n.L..\n....\n",
+      "....\n..L.\nLLL.\n....\n",
+      ".L..\n.L..\n.LL.\n....\n"
+    ];
 
     shape;
     height;
@@ -88,9 +102,14 @@ export class RotatingShape {
         if (RotatingShape.I_ROTATIONS.indexOf(this.toString()) > -1) {
           return RotatingShape.I_ROTATIONS;
         }
-
         if (RotatingShape.T_ROTATIONS.indexOf(this.toString()) > -1) {
           return RotatingShape.T_ROTATIONS;
+        }
+        if (RotatingShape.L_ROTATIONS.indexOf(this.toString()) > -1) {
+          return RotatingShape.L_ROTATIONS;
+        }
+        if (RotatingShape.J_ROTATIONS.indexOf(this.toString()) > -1) {
+          return RotatingShape.J_ROTATIONS;
         }
         throw new Error("now shape found");
       }

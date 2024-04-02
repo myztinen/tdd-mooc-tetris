@@ -6,20 +6,31 @@ export class Tetromino {
     shapes;
 
     static T_SHAPE = new Tetromino(
-       `....
-        TTT.
-        .T..
-        ....`);
+     `....
+      TTT.
+      .T..
+      ....`);
     static I_SHAPE = new Tetromino(
-       `....
-        IIII
-        ....
-        ....`);
+     `....
+      IIII
+      ....
+      ....`);
     static O_SHAPE = new Tetromino(
-        `....
-         .OO.
-         .OO.
-         ....`);
+     `....
+      .OO.
+      .OO.
+      ....`);
+    static J_SHAPE = new Tetromino(
+     `....
+      JJJ.
+      ..J.
+      ....`);
+          
+    static L_SHAPE = new Tetromino(
+     `....
+      LLL.
+      L...
+      ....`);
 
     constructor(shape) {
         this.shape = new RotatingShape(shape);
