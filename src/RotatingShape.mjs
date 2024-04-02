@@ -27,6 +27,10 @@ export class RotatingShape {
       "....\n..L.\nLLL.\n....\n",
       ".L..\n.L..\n.LL.\n....\n"
     ];
+    static S_ROTATIONS = [
+      "....\n.SS.\nSS..\n....\n",
+      "S...\nSS..\n.S..\n....\n"
+    ];
 
     shape;
     height;
@@ -110,6 +114,9 @@ export class RotatingShape {
         }
         if (RotatingShape.J_ROTATIONS.indexOf(this.toString()) > -1) {
           return RotatingShape.J_ROTATIONS;
+        }
+        if (RotatingShape.S_ROTATIONS.indexOf(this.toString()) > -1) {
+          return RotatingShape.S_ROTATIONS;
         }
         throw new Error("now shape found");
       }

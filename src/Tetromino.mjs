@@ -31,6 +31,11 @@ export class Tetromino {
       LLL.
       L...
       ....`);
+    static S_SHAPE = new Tetromino(
+     `....
+      .SS.
+      SS..
+      ....`);
 
     constructor(shape) {
         this.shape = new RotatingShape(shape);
