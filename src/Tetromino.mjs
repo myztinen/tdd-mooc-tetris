@@ -9,19 +9,19 @@ export class Tetromino {
        `....
         TTT.
         .T..
-        ....`, 4);
+        ....`);
     static I_SHAPE = new Tetromino(
        `....
         IIII
         ....
-        ....`, 2);
+        ....`);
     static O_SHAPE = new Tetromino(
         `....
          .OO.
          .OO.
-         ....`, 1);
+         ....`);
 
-    constructor(shape, dropHeight) {
+    constructor(shape) {
         this.shape = new RotatingShape(shape);
       }
 
