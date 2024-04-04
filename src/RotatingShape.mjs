@@ -126,7 +126,7 @@ export class RotatingShape {
         if (RotatingShape.Z_ROTATIONS.indexOf(this.toString()) > -1) {
           return RotatingShape.Z_ROTATIONS;
         }
-        throw new Error("now shape found");
+        throw new Error("no shape found");
       }
 
 }
