@@ -17,6 +17,4 @@ export class ShuffleBag {
   getTetromino() {
     return this.mixingBag[0];
   }
-    
-  
 }

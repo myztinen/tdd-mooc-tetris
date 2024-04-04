@@ -11,7 +11,6 @@ describe("Tetromino shuffle bag", () => {
   beforeEach(() => {
     shuffleBag = new ShuffleBag();
   });
-
   test("can be initialized", () => {
     expect(shuffleBag.getTetromino().constructor.name).to.equal('Tetromino');
   });

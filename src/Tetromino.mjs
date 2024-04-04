@@ -3,47 +3,47 @@ import { RotatingShape } from "./RotatingShape.mjs";
 export class Tetromino {
     shape;
     currentOrientation;
-    shapes;
-
+    name;
     static T_SHAPE = new Tetromino(
      `....
       TTT.
       .T..
-      ....`);
+      ....`, 'T');
     static I_SHAPE = new Tetromino(
      `....
       IIII
       ....
-      ....`);
+      ....`, 'I');
     static O_SHAPE = new Tetromino(
      `....
       .OO.
       .OO.
-      ....`);
+      ....`, 'O');
     static J_SHAPE = new Tetromino(
      `....
       JJJ.
       ..J.
-      ....`);
+      ....`, 'J');
           
     static L_SHAPE = new Tetromino(
      `....
       LLL.
       L...
-      ....`);
+      ....`, 'L');
     static S_SHAPE = new Tetromino(
      `....
       .SS.
       SS..
-      ....`);
+      ....`, 'S');
     static Z_SHAPE = new Tetromino(
      `....
       ZZ..
       .ZZ.
-      ....`);
+      ....`, 'Z');
 
-    constructor(shape) {
+    constructor(shape, name="unknown") {
         this.shape = new RotatingShape(shape);
+        this.name = name;
       }
 
       toString() {

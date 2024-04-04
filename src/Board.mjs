@@ -305,7 +305,6 @@ export class Board {
 
   removeListener(listener) {  
     let listenerIndex = this.listeners.indexOf(listener);
-    console.log(listener.constructor.name);
     if (listenerIndex == -1) throw new Error("No listener found!");
     this.listeners.splice(listenerIndex, 1);
   }
