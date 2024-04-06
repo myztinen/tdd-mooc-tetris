@@ -12,9 +12,21 @@ export class ShuffleBag {
   mixingBag = [...this.tetrominoes];
 
   constructor() {
+    this.shuffleMixingBag();
     }
 
   getTetromino() {
-    return this.mixingBag[0];
+    if (this.mixingBag.length == 0) {
+      this.mixingBag = [...this.tetrominoes];
+      this.shuffleMixingBag();
+    }
+    return this.mixingBag.pop();
+  }
+
+  shuffleMixingBag() {
+    for (let i = this.mixingBag.length - 1; i >= 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [this.mixingBag[i], this.mixingBag[j]] = [this.mixingBag[j], this.mixingBag[i]];
+    }
   }
 }

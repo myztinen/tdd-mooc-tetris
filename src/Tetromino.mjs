@@ -2,7 +2,6 @@ import { RotatingShape } from "./RotatingShape.mjs";
 
 export class Tetromino {
     shape;
-    currentOrientation;
     name;
     static T_SHAPE = new Tetromino(
      `....
